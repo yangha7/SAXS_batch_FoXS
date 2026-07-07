@@ -1,13 +1,13 @@
 # SAXS_Batch
 
-Batch computation of Small-Angle X-ray Scattering (SAXS) profiles for PDB
-structures using [FoXS](https://modbase.compbio.ucsf.edu/foxs/) (Fast SAXS
-Profile Computation with Debye Formula).
+Batch computation of Small-Angle X-ray Scattering (SAXS) profiles for
+PDB and mmCIF structures using [FoXS](https://modbase.compbio.ucsf.edu/foxs/)
+(Fast SAXS Profile Computation with Debye Formula).
 
 ## Overview
 
-This tool runs FoXS on all PDB files in a directory in parallel and aggregates
-the results into a summary CSV.
+This tool runs FoXS on all `.pdb` and `.cif` files in a directory in parallel
+and aggregates the results into a summary CSV.
 
 ## Requirements
 
@@ -39,7 +39,7 @@ python run_batch.py --pdb-dir /path/to/structures --max-q 0.5 --num-points 500
 python run_batch.py --pdb-dir /path/to/structures --workers 8
 
 # Plot all profiles overlaid
-python plot_profiles.py output/
+python plot_profiles.py output/saxs/
 ```
 
 ## Output Structure
