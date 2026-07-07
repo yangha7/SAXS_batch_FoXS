@@ -236,9 +236,9 @@ def main():
         print(f"ERROR: {pdb_dir} is not a directory")
         sys.exit(1)
 
-    pdb_files = sorted(pdb_dir.glob("*.pdb"))
+    pdb_files = sorted([*pdb_dir.glob("*.pdb"), *pdb_dir.glob("*.cif")])
     if not pdb_files:
-        print(f"No PDB files found in {pdb_dir}")
+        print(f"No PDB or CIF files found in {pdb_dir}")
         sys.exit(1)
 
     saxs_dir = output_dir / "saxs"

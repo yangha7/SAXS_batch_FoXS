@@ -23,11 +23,20 @@ the results into a summary CSV.
 # Compute SAXS profiles for all PDB files in a directory
 python run_batch.py --pdb-dir /path/to/pdb/files
 
+# Compute SAXS profiles for AlphaFold .cif structures (single file via FoXS directly)
+foxs structure.cif
+
+# Batch process a directory of AlphaFold .cif files
+python run_batch.py --pdb-dir /path/to/alphafold/cifs
+
+# Mixed directories (.pdb and .cif) are also supported
+python run_batch.py --pdb-dir /path/to/mixed/structures
+
 # Control FoXS parameters
-python run_batch.py --pdb-dir /path/to/pdb/files --max-q 0.5 --num-points 500
+python run_batch.py --pdb-dir /path/to/structures --max-q 0.5 --num-points 500
 
 # Parallel execution (default: number of CPU cores)
-python run_batch.py --pdb-dir /path/to/pdb/files --workers 8
+python run_batch.py --pdb-dir /path/to/structures --workers 8
 
 # Plot all profiles overlaid
 python plot_profiles.py output/
@@ -39,7 +48,7 @@ python plot_profiles.py output/
 output/
 ├── saxs/
 │   ├── structure1.pdb.dat
-│   ├── structure2.pdb.dat
+│   ├── AF-P12345-F1-model_v4.cif.dat
 │   └── ...
 └── summary.csv
 ```
