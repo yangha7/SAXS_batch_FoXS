@@ -32,13 +32,19 @@ python run_batch.py --pdb-dir /path/to/alphafold/cifs
 # Mixed directories (.pdb and .cif) are also supported
 python run_batch.py --pdb-dir /path/to/mixed/structures
 
+# Generate an overlay plot automatically after the run
+python run_batch.py --pdb-dir /path/to/structures --plot
+
+# Limit the number of traces in the plot (default: 50)
+python run_batch.py --pdb-dir /path/to/structures --plot --max-traces 10
+
 # Control FoXS parameters
 python run_batch.py --pdb-dir /path/to/structures --max-q 0.5 --num-points 500
 
 # Parallel execution (default: number of CPU cores)
 python run_batch.py --pdb-dir /path/to/structures --workers 8
 
-# Plot all profiles overlaid
+# Plot existing profiles separately (more options: --kratky, --guinier, --compare, --rg)
 python plot_profiles.py output/saxs/
 ```
 

@@ -2,10 +2,12 @@
 """
 Batch SAXS profile computation using FoXS.
 
-Computes theoretical SAXS profiles for all PDB files in a directory.
+Computes theoretical SAXS profiles for all PDB/CIF files in a directory.
 
 Usage:
     python run_batch.py --pdb-dir /path/to/pdbs
+    python run_batch.py --pdb-dir /path/to/pdbs --plot
+    python run_batch.py --pdb-dir /path/to/pdbs --plot --max-traces 10
     python run_batch.py --pdb-dir /path/to/pdbs --max-q 0.5 --num-points 500
     python run_batch.py --pdb-dir /path/to/pdbs --workers 8
 """
@@ -162,6 +164,8 @@ def main():
         epilog=(
             "Examples:\n"
             "  python run_batch.py --pdb-dir /path/to/pdbs\n"
+            "  python run_batch.py --pdb-dir /path/to/pdbs --plot\n"
+            "  python run_batch.py --pdb-dir /path/to/pdbs --plot --max-traces 10\n"
             "  python run_batch.py --pdb-dir /path/to/pdbs --max-q 0.5 --num-points 500\n"
             "  python run_batch.py --pdb-dir /path/to/pdbs --workers 8\n"
         ),
@@ -207,6 +211,19 @@ def main():
         help=f"Output directory (default: {DEFAULT_OUTPUT_DIR}).",
     )
 
+    # Plotting
+    parser.add_argument(
+        "--plot",
+        action="store_true",
+        help="Generate an overlay plot of all SAXS profiles after the run.",
+    )
+    parser.add_argument(
+        "--max-traces",
+        type=int,
+        default=50,
+        help="Maximum number of profiles to include in the plot (default: 50).",
+    )
+
     # FoXS binary override
     parser.add_argument(
         "--foxs-bin",
@@ -244,7 +261,7 @@ def main():
     saxs_dir = output_dir / "saxs"
     saxs_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"Processing {len(pdb_files)} PDB files from {pdb_dir}")
+    print(f"Processing {len(pdb_files)} structures from {pdb_dir}")
     print(f"SAXS output: {saxs_dir}")
     print(f"FoXS params: max_q={args.max_q}, points={args.num_points}")
     print(f"Workers: {workers}")
@@ -281,6 +298,17 @@ def main():
     summary_path = output_dir / "summary.csv"
     write_summary(results, summary_path)
     _print_summary(results, elapsed, summary_path)
+
+    if args.plot:
+        from plot_profiles import plot_overlay, collect_dat_files
+        dat_files = collect_dat_files([str(saxs_dir)])
+        if dat_files:
+            plot_path = output_dir / "saxs_overlay.png"
+            title = Path(args.pdb_dir).name + " — SAXS profiles"
+            print()
+            plot_overlay(dat_files, plot_path, title=title, max_traces=args.max_traces)
+        else:
+            print("No .dat files to plot.")
 
 
 def _print_summary(results: list[dict], elapsed: float, summary_path: Path):
