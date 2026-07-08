@@ -1,0 +1,7 @@
+pdb_file,saxs_file,status,message
+fold_atatat_model_0.cif,fold_atatat_model_0.cif.dat,skipped,SAXS profile already exists
+fold_tagatatcta_model_0.cif,fold_tagatatcta_model_0.cif.dat,skipped,SAXS profile already exists
+fold_tagcatgcta_model_0.cif,fold_tagcatgcta_model_0.cif.dat,skipped,SAXS profile already exists
+fold_tagctagcta_model_0.cif,fold_tagctagcta_model_0.cif.dat,skipped,SAXS profile already exists
+fold_taggatccta_model_0.cif,fold_taggatccta_model_0.cif.dat,skipped,SAXS profile already exists
+fold_tccttaagga_model_0.cif,fold_tccttaagga_model_0.cif.dat,skipped,SAXS profile already exists
